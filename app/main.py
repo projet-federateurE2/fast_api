@@ -5,12 +5,9 @@ app = FastAPI()
 
 app.include_router(router_client, tags=["v1"], prefix="/v1")
 
-app = FastAPI()
-
-
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "world"}
 
 
 @app.get("/items/{item_id}")

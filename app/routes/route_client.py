@@ -10,30 +10,37 @@ import motor.motor_asyncio
 from fastapi import APIRouter
 from app.models.client import ClientModel
 
-
+from app.database import (
+    retrieve_datas,
+    retrieve_data,
+    insert_data,
+    update_data,
+    remove_data
+)
 
 router_client = APIRouter()
 
 @router_client.post("/client", response_description="ajouter un nouveau client", response_model=ClientModel)
-async def create_client(client_info):
-    client = jsonable_encoder(client)
-    new_client = await db["projets_federateur"].client.insert_one(client_info)
-    created_client = await db["projets_federateur"].client.find_one({"id": new_client.inserted_id})
-    return created_client
+async def post_client(client_data : ClientModel = Body(...)):
+    client = jsonable_encoder(client_data)
+    new_client = await insert_ufo(client)
+    return new_client
 
 
 @router_client.get(
     "/client", response_description="Liste tout les clients", response_model=List[ClientModel]
 )
-async def list_client():
-    clients = await db["projets_federateur"].client.find(skip=0, limit=5).to_list(5)
-    return clients
+async def get_clients():
+    client = await retrieve_datas("client",id)
+    if client:
+        return client
+    return "client doesn't exist"
 
 @router_client.get(
     "/client/{id}", response_description="afficher un client", response_model=ClientModel
 )
-async def show_client(id: str):
-    if (client := await db["projets_federateur"].client.find_one({"id": id})) is not None:
+async def get_clients():
+    client = await retrieve_data("client")
+    if client:
         return client
-
-    raise HTTPException(status_code=404, detail=f"le client {id} n'a pas ete trouver")
+    return "client doesn't exist"
