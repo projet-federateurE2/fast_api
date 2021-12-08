@@ -37,6 +37,10 @@ TEST: IMPERATIVE_MESSAGE
 
 ## Création de branche
 
-fonction/description
+Lors d'une création de branche, le nommage suit le format : fonction/description
+
+### Liste des fonctions
+- mongo
+- route
 
 Exemple : route/ajout_des_routes_client
