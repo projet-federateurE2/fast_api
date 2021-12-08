@@ -39,16 +39,9 @@ git clone git@github.com:projet-federateurE2/fast_api.git
 cd fast_api
 ```
 
-Build local docker image :
-
+**Run container :**
 ```bash
-docker build -t fastapi .
-```
-
-Run image in container :
-
-```bash
-docker run -p 80:80 -v $(pwd):/app --name apiProjet fastapi
+docker-compose up --build
 ```
 
 Browse [http://localhost:80](http://localhost:80).
