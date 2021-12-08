@@ -8,7 +8,7 @@ class ClientModel(BaseModel):
     id : str
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
-    age : int(ge=0, le=100)
+    age : int
     #Revenu Fiscale de Reference
     rfr : int
     # En activité ou retraite
@@ -27,9 +27,8 @@ class ClientModel(BaseModel):
                 "prenom": "jean",
                 "age": "40",
                 "Revenu Fiscale de Reference": "8454€",
-                "situation":"en activité"
+                "situation":"en activité",
                 "propriete": ["35 avenue de terrasse, Poitiers"],
                 "coordonnee": "0626341285"
                 }
             }
-        }
