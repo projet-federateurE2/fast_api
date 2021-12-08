@@ -1,11 +1,14 @@
 from fastapi import FastAPI
 
-from app.routes.ufos import router as UfoRouter
-
 app = FastAPI()
 
-app.include_router(UfoRouter, tags=["v1"], prefix="/v1")
 
-@app.get("/", tags=["API Root"])
-async def read_root():
-    return {"message": "Welcome to ufo APP!"}
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+    
