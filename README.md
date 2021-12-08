@@ -6,6 +6,7 @@
 - César RENAULT
 - Théo TRIOU
 - Corentin BELLEC
+- Romain DELAGE
 
 ## Decription
 
