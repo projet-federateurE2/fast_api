@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 
-from app.routes.ufos import router as UfoRouter
+from app.routes.route_client import router_client as router_client
 
 app = FastAPI()
 
-app.include_router(UfoRouter, tags=["v1"], prefix="/v1")
+app.include_router(router_client, tags=["v1"], prefix="/v1")
 
 @app.get("/", tags=["API Root"])
 async def read_root():

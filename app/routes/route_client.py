@@ -8,30 +8,32 @@ from bson import ObjectId
 from typing import Optional, List, Literal, Tuple
 import motor.motor_asyncio
 from fastapi import APIRouter
-from models.client import ClientModel
+from app.models.client import ClientModel
+
+
 
 router_client = APIRouter()
 
 @router_client.post("/client", response_description="ajouter un nouveau client", response_model=ClientModel)
-async def create_client(client: ClientModel = body(...)):
+async def create_client(client_info):
     client = jsonable_encoder(client)
-    new_client = await db["projets_federateur"].client.insert_one(client)
-    created_client = await db["projets_federateur"].client.find_one("id":new_client.inserted_id)
-    return JSONResponse(status_code=status=HTTP_201_CREATED, content=created_client)
+    new_client = await db["projets_federateur"].client.insert_one(client_info)
+    created_client = await db["projets_federateur"].client.find_one({"id": new_client.inserted_id})
+    return created_client
 
 
-@router_obs.get(
+@router_client.get(
     "/client", response_description="Liste tout les clients", response_model=List[ClientModel]
 )
-async def list_obs():
+async def list_client():
     clients = await db["projets_federateur"].client.find(skip=0, limit=5).to_list(5)
     return clients
 
-@router_obs.get(
-    "/client/{id}", response_description="afficher un client", response_model=ObsModel
+@router_client.get(
+    "/client/{id}", response_description="afficher un client", response_model=ClientModel
 )
-async def show_obs(id: str):
-    if (obs := await db["obs"].client.find_one({"id": id})) is not None:
-        return obs
+async def show_client(id: str):
+    if (client := await db["projets_federateur"].client.find_one({"id": id})) is not None:
+        return client
 
     raise HTTPException(status_code=404, detail=f"le client {id} n'a pas ete trouver")
