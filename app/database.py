@@ -4,6 +4,51 @@ from bson.objectid import ObjectId
 
 MONGO_URL = os.environ.get("MONGODB_ADDON_URI")
 
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URL)
+db = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URL)
+database = db.ufo_api
 
-database = client.ufo_api
+async def retrieve_datas(collection:str):
+    list_data = []
+    data_collection = database.get_collection(collection)
+    async for ufo in ufos_collection.find():
+        data.append(list_data)
+    return data
+
+# Retrieve a ufo with a matching ID
+async def retrieve_data(collection:str, id:str):
+    data_collection = database.get_collection(collection)
+    data = await ufos_collection.find_one({"_id": id})
+    if data:
+        return data
+
+# Add a new ufo into to the database
+async def insert_data(collection:str,add_data:dict):
+    data_collection = database.get_collection(collection)
+    data = await ufos_collection.insert_one(add_data)
+    new_data = await ufos_collection.find_one({"_id": data.inserted_id})
+    return new_data
+
+
+# Update a ufo with a matching ID
+async def update_data(collection:str, id: str, data_update: dict):
+    # Return false if an empty request body is sent.
+    data_collection = database.get_collection(collection)
+    if len(data_update) < 1:
+        return False
+    data = await data_collection.find_one({"_id": id})
+    if data:
+        updated_data = await data_collection.update_one(
+            {"_id": id}, {"$set": data}
+        )
+        if updated_data:
+            return True
+        return False
+
+
+# Delete a ufo from the database
+async def remove_data(id: str):
+    data_collection = database.get_collection(collection)
+    data = await data_collection.find_one({"_id": id})
+    if data:
+        await data_collection.delete_one({"_id": id})
+        return True
