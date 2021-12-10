@@ -5,7 +5,6 @@ app = FastAPI()
 
 app.include_router(router_client, tags=["v1"], prefix="/v1")
 
-app = FastAPI()
 
 
 @app.get("/")
