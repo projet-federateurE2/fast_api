@@ -5,13 +5,11 @@ from bson.objectid import ObjectId
 
 
 class ClientModel(BaseModel):
+
     id : str
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
     age : int
-    #Revenu Fiscale de Reference
-    rfr : int
-    # En activité ou retraite
     situation : str
     propriete : list[str] = []
     coordonnee : str

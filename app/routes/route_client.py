@@ -23,7 +23,7 @@ router_client = APIRouter()
 @router_client.post("/client", response_description="ajouter un nouveau client", response_model=ClientModel)
 async def post_client(client_data : ClientModel = Body(...)):
     client = jsonable_encoder(client_data)
-    new_client = await insert_ufo(client)
+    new_client = await insert_data("client", client)
     return new_client
 
 
@@ -31,16 +31,16 @@ async def post_client(client_data : ClientModel = Body(...)):
     "/client", response_description="Liste tout les clients", response_model=List[ClientModel]
 )
 async def get_clients():
-    client = await retrieve_datas("client",id)
-    if client:
-        return client
+    client = await retrieve_datas("client",)
+    if clients:
+        return clients
     return "client doesn't exist"
 
 @router_client.get(
     "/client/{id}", response_description="afficher un client", response_model=ClientModel
 )
-async def get_clients():
-    client = await retrieve_data("client")
+async def get_clients(id:str):
+    client = await retrieve_data("client",id)
     if client:
         return client
     return "client doesn't exist"
