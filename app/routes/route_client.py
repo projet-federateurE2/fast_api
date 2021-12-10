@@ -8,9 +8,9 @@ from bson import ObjectId
 from typing import Optional, List, Literal, Tuple
 import motor.motor_asyncio
 from fastapi import APIRouter
-from app.models.client import ClientModel
+from models.client import ClientModel
 
-from app.database import (
+from database import (
     retrieve_datas,
     retrieve_data,
     insert_data,

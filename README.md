@@ -1,74 +1,40 @@
 # fast_api
 
-### Acteur:
-- Estéban CHACON
-- Arsène REYMOND
-- César RENAULT
-- Théo TRIOU
-- Corentin BELLEC
-- Romain DELAGE
 
-## Decription
+## Description
 
-Au cours de la formation CDTL parcours cloud, il nous a été demandé de déveloper une application pour l'agglomération Thouars.
+Au cours de la formation CDTL parcours cloud, il nous a été demandé de développer une application pour l'agglomération de [Thouars](https://thouarsetmoi.fr/).
 
 Cette application a pour but de faciliter les démarches et les procédures nécéssaires à la demande de subvention pour effectuer des travaux de rénovations d'habitations dans le but de la rendre plus écologique.
 
 Cette application a été scindée en trois parties :
 
-- **Propriétaire** : à destination des propriétaires souhaitant faire des travaux de renovation.
+- **Propriétaire** : à destination des propriétaires souhaitant faire des travaux de rénovation.
 
-- **Conseiller** : à destination des conseillers
+- **Conseiller** : à destination des conseillers.
 
-- **Architecture** : Gestion des données nécéssaires au fonctionnement des différentes parties
+- **Architecture** : Gestion des données nécéssaires au fonctionnement des différentes parties.
 
 ## Scope
 
 Dans ce projet notre équipe est en charge du développement de la partie Architecture. Les taches à effectuer seront la mise en place d'une base de données (Probablement MongoDB) et la gestion des communications entre les différentes parties de ce projet.
 
-## Commit
+# Installation
 
-Pour les commit on utiliseront des gitmoji
+Clone the repository :
+```bash
+git clone git@github.com:projet-federateurE2/fast_api.git
+cd fast_api
+```
 
-📦 NEW: IMPERATIVE_MESSAGE
+**Run container :**
+```bash
+docker-compose up --build
+```
 
-    utiliser pour ajouté quelque chose de nouveau.
-        exemple : 📦 NEW: Add Git ignore file
+Browse [http://localhost:80](http://localhost:80).
+The API is hot reloading !
 
-👌 IMPROVE: IMPERATIVE_MESSAGE
+# How to contribute ?
 
-    utiliser pour  amélioré/reécriture du code, ect.
-        exemple : 👌 IMPROVE: Remote IP API Function
-
-🐛 FIX: IMPERATIVE_MESSAGE
-
-    utiliser pour fix le code.
-        exemple : 🐛 FIX: Case converter
-
-📖 DOC: IMPERATIVE_MESSAGE
-
-    utiliser pour ajouté de la doc.
-        exemple : 📖 DOC: API Interface Tutorial
-
-🚀 RELEASE: IMPERATIVE_MESSAGE
-
-    utiliser pour ajouté une nouvelle version.
-      exemple : 🚀 RELEASE: Version 2.0.0
-
-✅ TEST: IMPERATIVE_MESSAGE
-
-    utiliser pour les tests.
-        exemple : ✅ TEST: Mock User Login/Logout
-
-
-## création de branche
-
-fonction/description
-
-Exemple : route/ajout_des_routes_client
-
-## liste des fonction
-
-- mongo
-- route
-- docker
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file.
