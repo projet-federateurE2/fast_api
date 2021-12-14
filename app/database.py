@@ -11,7 +11,7 @@ async def retrieve_datas(collection:str):
     list_data = []
     data_collection = database.get_collection(collection)
     async for data in data_collection.find():
-        data.append(list_data)
+        list_data.append(data)
     return data
 
 # Retrieve a data with a matching ID

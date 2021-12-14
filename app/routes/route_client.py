@@ -32,8 +32,8 @@ async def post_client(client_data : ClientModel = Body(...)):
 )
 async def get_clients():
     client = await retrieve_datas("client",)
-    if clients:
-        return clients
+    if client:
+        return client
     return "client doesn't exist"
 
 @router_client.get(
