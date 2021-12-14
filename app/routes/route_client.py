@@ -31,7 +31,7 @@ async def post_client(client_data : UserModel = Body(...)):
     "/client", response_description="Liste tout les clients", response_model=List[UserModel]
 )
 async def get_clients():
-    client = await retrieve_datas("client",)
+    client = await retrieve_datas("client")
     if client:
         return client
     return "client doesn't exist"

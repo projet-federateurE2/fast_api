@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
 
@@ -7,7 +7,7 @@ class logement(BaseModel):
     adresse : str
     surface : int
     type : str
-    idProjet : list[str]
+    idProjet : List[str] = []
 
 class UserModel(BaseModel):
 
@@ -18,7 +18,7 @@ class UserModel(BaseModel):
     prenom : str = Field(max_length=15)
     situation : str
     revenu_fiscal : int
-    propriete : list[logement]
+    propriete : list[Dict[str,str]]
 
     class Config:
         allow_population_by_field_name = True
@@ -31,8 +31,15 @@ class UserModel(BaseModel):
                 "role" : "propriétaires",
                 "nom": "Dujardin",
                 "prenom": "jean",
-                "revenu_fiscal" : 454,
                 "situation":"en activité",
-                "propriete": [{"adresse":"32 avenue des terrasses", "surface" : 35, "type":"appartement", "idProjet":["aaaaa"]}],
-                }
+                "revenu_fiscal" : 454,
+                "propriete": [{
+                    "adresse":"32 avenue des terrasses",
+                    "surface" : 35,
+                    "type":"appartement",
+                    "idProjet":[
+                        "aaaaa"
+                    ]
+                }]
             }
+        }
