@@ -3,16 +3,22 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
 
+class logement(BaseModel):
+    adresse : str
+    surface : int
+    type : str
+    idProjet : list[str]
 
-class ClientModel(BaseModel):
+class UserModel(BaseModel):
 
-    id : str
+    email : str
+    password : str
+    role : str
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
-    age : int
     situation : str
-    propriete : list[str] = []
-    coordonnee : str
+    revenu_fiscal : int
+    propriete : list[logement]
 
     class Config:
         allow_population_by_field_name = True
@@ -20,13 +26,13 @@ class ClientModel(BaseModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "id": "client",
+                "email": "client",
+                "password" : "kdsl",
+                "role" : "propriétaires",
                 "nom": "Dujardin",
                 "prenom": "jean",
-                "age": "40",
-                "Revenu Fiscale de Reference": "8454€",
+                "revenu_fiscal" : 454,
                 "situation":"en activité",
-                "propriete": ["35 avenue de terrasse, Poitiers"],
-                "coordonnee": "0626341285"
+                "propriete": [{"adresse":"32 avenue des terrasses", "surface" : 35, "type":"appartement", "idProjet":["aaaaa"]}],
                 }
             }
