@@ -55,6 +55,8 @@ $ git flow feature start <name>
 
 *Où <name> prend le nom de la feature. Exemple : "routeClient".*
 
+Pour publier la branche local sur la branche distante, il est possible de faire un `git flow feature publish <name>`
+
 A la fin, la commande `feature finish` ferme la branche et merge sur `develop`.
 
 ```bash
