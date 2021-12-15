@@ -40,11 +40,11 @@ TEST: IMPERATIVE_MESSAGE
 Nous suivons le paterne [Git Flow](https://github.com/danielkummer/git-flow-cheatsheet).
 Pour l'installation, lancer `apt install git-flow`.
 
-![Git Workflow schema](https://wac-cdn.atlassian.com/dam/jcr:34c86360-8dea-4be4-92f7-6597d4d5bfae/02%20Feature%20branches.svg?cdnVersion=132)
+<img src="https://wac-cdn.atlassian.com/dam/jcr:34c86360-8dea-4be4-92f7-6597d4d5bfae/02%20Feature%20branches.svg" alt="Git Workflow schema" width="600"/>
 
 Le développement se fait sur des branches `features`, créées à partir de la branche `develop`. La création de releases merge le code de la branche `develop` sur la branche `main`.
 
-### Développement
+### Développement
 
 Lors de la création d'une fonctionnalité, le nommage suit le format : feature/description.
 Ce dernier est automatiquement généré par **git flow**. Le développement d'une fonctionalité se fait avec :
