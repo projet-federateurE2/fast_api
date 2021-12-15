@@ -10,6 +10,7 @@ import motor.motor_asyncio
 from fastapi import APIRouter
 from models.user import UserModel
 
+
 from database import (
     retrieve_datas,
     retrieve_data,
@@ -39,7 +40,7 @@ async def get_clients():
 @router_client.get(
     "/client/{id}", response_description="afficher un client", response_model=UserModel
 )
-async def get_clients(id:str):
+async def get_client(id:str):
     client = await retrieve_data("client",id)
     if client:
         return client

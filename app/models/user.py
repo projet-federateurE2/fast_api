@@ -3,11 +3,11 @@ from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
 
-class logement(BaseModel):
+class Logement(BaseModel):
     adresse : str
     surface : int
     type : str
-    idProjet : List[str] = []
+    idProjet : List[str]
 
 class UserModel(BaseModel):
 
@@ -18,7 +18,7 @@ class UserModel(BaseModel):
     prenom : str = Field(max_length=15)
     situation : str
     revenu_fiscal : int
-    propriete : list[Dict[str,str]]
+    propriete : List[Logement]
 
     class Config:
         allow_population_by_field_name = True

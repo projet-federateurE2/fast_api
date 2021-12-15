@@ -131,3 +131,7 @@ dmypy.json
 .pyre/
 
 run.py
+
+# IDE
+
+.idea
