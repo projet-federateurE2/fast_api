@@ -27,13 +27,19 @@ git clone git@github.com:projet-federateurE2/fast_api.git
 cd fast_api
 ```
 
+## Running
+
 **Run container :**
 ```bash
 docker-compose up --build
 ```
 
 Browse [http://localhost:80](http://localhost:80).
-The API is hot reloading !
+The API server is hot reloading !
+
+- [http://localhost/docs](http://localhost/docs) permet de tester l'API avec SwaggerUi
+- [http://localhost/redoc](http://localhost/redoc) permet de voir le format de données renvoyés sur chaque route
+- *les endpoints sont aussi accessibles directement via leur route (url définies dans le dossier routes)*
 
 # How to contribute ?
 
