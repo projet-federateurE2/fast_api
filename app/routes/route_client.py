@@ -8,7 +8,8 @@ from bson import ObjectId
 from typing import Optional, List, Literal, Tuple
 import motor.motor_asyncio
 from fastapi import APIRouter
-from models.client import ClientModel
+from models.user import UserModel
+
 
 from database import (
     retrieve_datas,
@@ -20,27 +21,27 @@ from database import (
 
 router_client = APIRouter()
 
-@router_client.post("/client", response_description="ajouter un nouveau client", response_model=ClientModel)
-async def post_client(client_data : ClientModel = Body(...)):
+@router_client.post("/client", response_description="ajouter un nouveau client", response_model=UserModel)
+async def post_client(client_data : UserModel = Body(...)):
     client = jsonable_encoder(client_data)
-    new_client = await insert_ufo(client)
+    new_client = await insert_data("client", client)
     return new_client
 
 
 @router_client.get(
-    "/client", response_description="Liste tout les clients", response_model=List[ClientModel]
+    "/client", response_description="Liste tout les clients", response_model=List[UserModel]
 )
 async def get_clients():
-    client = await retrieve_datas("client",id)
+    client = await retrieve_datas("client")
     if client:
         return client
     return "client doesn't exist"
 
 @router_client.get(
-    "/client/{id}", response_description="afficher un client", response_model=ClientModel
+    "/client/{id}", response_description="afficher un client", response_model=UserModel
 )
-async def get_clients():
-    client = await retrieve_data("client")
+async def get_client(id:str):
+    client = await retrieve_data("client",id)
     if client:
         return client
     return "client doesn't exist"
