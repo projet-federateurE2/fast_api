@@ -1,20 +1,26 @@
-from datetime import datetime
 from typing import List
+from typing_extensions import Literal
+
 class Tache(BaseModel):
-    nomTache: str
+    nom: str
+
 class Etape(BaseModel):
-    nomEtape: str
+    nom: str
     conseils: List[conseils]
-    tache: List[Tache]
+    taches: List[Tache]
+
 class conseils(BaseModel):
-    typeConseil: str
+    type: Literal["Aide", "Avertissement"]
     texte: str
+
 class Travaux(BaseModel):
-    nom_travail: str
+    nom: str
     conseils: List[conseils]
-    etape: List[Etape]
+    etapes: List[Etape]
+
+# Nom de class Template_travaux à changer
 class Template_travaux(BaseModel):
-    typeTravaux: str
+    type: Literal["Isolation", "Chauffage", "Ventilation"]
     description: str
     pitch: str
     travaux: List[Travaux]
