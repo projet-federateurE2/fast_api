@@ -1,15 +1,21 @@
 from datetime import datetime
 from typing import Dict, List, Literal, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from bson.objectid import ObjectId
 from pydantic.networks import EmailStr
+from app.models.user import UserModel
 
-class UserModel(BaseModel):
-    email : EmailStr
-    role : Literal["Conseiller", "Propriétaire", "Admin"]
-    nom : str = Field(max_length=25)
-    prenom : str = Field(max_length=15)
-    
+class Logement(BaseModel):
+    adresse : str
+    surface : int
+    type : Literal["Maison", "Appaterment"]
+    idProjet : List[str]
+
+class Proprietaire(UserModel):
+    situation : Literal["Actif", "Retraité", "Sans emploi"]
+    revenue_fiscal: int
+    proprietes: List[Logement]
+
     class Config:
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
@@ -21,7 +27,7 @@ class UserModel(BaseModel):
                 "nom": "Dujardin",
                 "prenom": "jean",
                 "situation":"Actif",
-                "revenu_fiscal" : 454,
+                "revenu_fiscal" : 21000,
                 "propriete": [{
                     "adresse":"32 avenue des terrasses",
                     "surface" : 35,
