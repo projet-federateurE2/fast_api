@@ -16,25 +16,25 @@ class Proprietaire(UserModel):
     revenue_fiscal: int
     proprietes: List[Logement]
 
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
-        schema_extra = {
-            "example": {
-                "email": "client",
-                "role" : "propriétaires",
-                "nom": "Dujardin",
-                "prenom": "jean",
-                "situation":"Actif",
-                "revenu_fiscal" : 21000,
-                "propriete": [{
-                    "adresse":"32 avenue des terrasses",
-                    "surface" : 35,
-                    "type":"appartement",
-                    "idProjet":[
-                        "aaaaa"
-                    ]
-                }]
-            }
-        }
+    # class Config:
+    #     allow_population_by_field_name = True
+    #     arbitrary_types_allowed = True
+    #     json_encoders = {ObjectId: str}
+    #     schema_extra = {
+    #         "example": {
+    #             "email": "client",
+    #             "role" : "propriétaires",
+    #             "nom": "Dujardin",
+    #             "prenom": "jean",
+    #             "situation":"Actif",
+    #             "revenu_fiscal" : 21000,
+    #             "propriete": [{
+    #                 "adresse":"32 avenue des terrasses",
+    #                 "surface" : 35,
+    #                 "type":"appartement",
+    #                 "idProjet":[
+    #                     "aaaaa"
+    #                 ]
+    #             }]
+    #         }
+    #     }
