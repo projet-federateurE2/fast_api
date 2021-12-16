@@ -5,3 +5,4 @@ starlette
 motor
 pytest
 pymongo
+pylint
