@@ -1,16 +1,8 @@
-import os
-from datetime import datetime
-from fastapi import FastAPI, Body, HTTPException, status
-from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel, Field, confloat
-from bson import ObjectId
-from typing import Optional, List, Literal, Tuple
-import motor.motor_asyncio
+from typing import List
 from fastapi import APIRouter
-from models.user import UserModel
+from app.models.artisan import Artisan
 
-from database import (
+from app.database import (
     retrieve_datas,
     retrieve_data,
     insert_data,
@@ -21,7 +13,7 @@ from database import (
 router_artisan = APIRouter()
 
 @router_artisan.get(
-    "/artisans/{catArtisan}", response_description="Liste les catégories de travaux", response_model=List[ArtisanModel]
+    "/artisans/{catArtisan}", response_description="Liste les catégories de travaux", response_model=List[Artisan]
 )
 async def get_artisans(catArtisan):
     travaux = await retrieve_data("Artisan", "categorieArtisan", catArtisan)
