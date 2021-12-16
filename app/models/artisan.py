@@ -10,7 +10,7 @@ class Adresse(BaseModel):
 class Artisan(BaseModel):
     categorie: str
     nom: str
-    telehpone: str = Field(max_length=6)
+    telehpone: str = Field(max_length=10)
     adresse: Adresse
     email: EmailStr
     site: Optional[HttpUrl]
