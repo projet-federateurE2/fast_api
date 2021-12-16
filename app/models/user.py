@@ -1,22 +1,22 @@
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List, Literal, Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
+from pydantic.networks import EmailStr
 
 class Logement(BaseModel):
     adresse : str
     surface : int
-    type : str
+    type : Literal["Maison", "Appaterment"]
     idProjet : List[str]
 
 class UserModel(BaseModel):
-
-    email : str
+    email : EmailStr
     password : str
     role : str
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
-    situation : str
+    situation : Literal["Actif", "Retraité", "Sans emploi"]
     revenu_fiscal : int
     propriete : List[Logement]
 
