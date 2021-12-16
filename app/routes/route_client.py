@@ -9,14 +9,7 @@ from typing import Optional, List, Literal, Tuple
 import motor.motor_asyncio
 from fastapi import APIRouter
 from app.models.user import UserModel
-
-from app.database import (
-    retrieve_datas,
-    retrieve_data,
-    insert_data,
-    update_data,
-    remove_data
-)
+from app.database import commonUtils
 
 router_client = APIRouter()
 

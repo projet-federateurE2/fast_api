@@ -22,7 +22,7 @@ class Proprietaire(UserModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "email": "client",
+                "email": "Jean-Dujardin@gmail.com",
                 "role" : "propriétaires",
                 "nom": "Dujardin",
                 "prenom": "jean",
