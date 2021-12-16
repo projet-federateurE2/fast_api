@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     ports:
-      - '81:80'
+      - '8080:80'
     volumes:
       - ./app:/app/app
   
@@ -17,4 +17,7 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - './mongodata:/data/db'
+      - 'projetdata:/data/db'
+
+volumes:
+  projetdata:
