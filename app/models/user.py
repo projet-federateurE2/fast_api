@@ -10,25 +10,16 @@ class UserModel(BaseModel):
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
     
-"""     class Config:
+    class Config:
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "email": "client",
-                "role" : "propriétaires",
+                "email": "jean.dujardin@laposte.fr",
+                "role": "Propriétaire",
                 "nom": "Dujardin",
-                "prenom": "jean",
-                "situation":"Actif",
-                "revenu_fiscal" : 454,
-                "propriete": [{
-                    "adresse":"32 avenue des terrasses",
-                    "surface" : 35,
-                    "type":"appartement",
-                    "idProjet":[
-                        "aaaaa"
-                    ]
-                }]
-            }
-        } """
+                "prenom": "jean"
+                }
+
+        }
