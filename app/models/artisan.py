@@ -1,9 +1,6 @@
-from datetime import datetime
-from typing import List, Optional
-
-import integer as integer
-from pydantic import BaseModel, Field
-from bson.objectid import ObjectId
+from typing import Optional
+from pydantic import BaseModel
+from pydantic.networks import HttpUrl, EmailStr
 
 class Adresse(BaseModel):
     rue: str
@@ -11,9 +8,9 @@ class Adresse(BaseModel):
     code_postal: int(max_length=6)
 
 class Artisan(BaseModel):
-    categorieArtisan: str
-    nomArtisan: str
-    telehpone: int
-    adresse: List[Adresse]
-    email: str
-    site: Optional[str]
+    categorie: str
+    nom: str
+    telehpone: int(max_length=10)
+    adresse: Adresse
+    email: EmailStr
+    site: Optional[HttpUrl]
