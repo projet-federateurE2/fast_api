@@ -5,8 +5,16 @@ services:
     build: .
     container_name: apiProjet
     env_file:
-    - .env
+      - .env
     ports:
-      - '80:80'
+      - '81:80'
     volumes:
       - ./app:/app/app
+  
+  mongodb:
+    image: mongo
+    container_name: mongoProjet
+    ports:
+      - '27017:27017'
+    volumes:
+      - './mongodata:/data/db'
