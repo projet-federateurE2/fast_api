@@ -3,9 +3,10 @@ import motor.motor_asyncio
 from bson.objectid import ObjectId
 
 MONGO_URL = os.environ.get("MONGODB_ADDON_URI")
+MONGO_DB = os.environ.get("MONGODB_ADDON_DB")
 
 db = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URL)
-database = db.brzto7idtuqprth
+database = db.get_database(MONGO_DB)
 
 async def retrieve_datas(collection:str):
     list_data = []
