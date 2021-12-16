@@ -10,7 +10,7 @@ class UserModel(BaseModel):
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
     
-    class Config:
+"""     class Config:
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
@@ -31,4 +31,4 @@ class UserModel(BaseModel):
                     ]
                 }]
             }
-        }
+        } """
