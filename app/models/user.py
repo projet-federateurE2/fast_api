@@ -16,7 +16,7 @@ class UserModel(BaseModel):
     role : str
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
-    situation : Literal["Acitvité", "Retraité", "Sans emploie"]
+    situation : Literal["Actif", "Retraité", "Sans emploi"]
     revenu_fiscal : int
     propriete : List[Logement]
 
