@@ -9,14 +9,21 @@ from typing import Optional, List, Literal, Tuple
 import motor.motor_asyncio
 from fastapi import APIRouter
 from app.models.user import UserModel
-from app.database import commonUtils
+
+from app.database.common_utils import (
+    get_all,
+    get_one,
+    insert,
+    update,
+    remove
+)
 
 router_client = APIRouter()
 
 @router_client.post("/client", response_description="ajouter un nouveau client", response_model=UserModel)
 async def post_client(client_data : UserModel = Body(...)):
     client = jsonable_encoder(client_data)
-    new_client = await insert_data("client", client)
+    new_client = await insert("client", client)
     return new_client
 
 
@@ -24,7 +31,7 @@ async def post_client(client_data : UserModel = Body(...)):
     "/client", response_description="Liste tout les clients", response_model=List[UserModel]
 )
 async def get_clients():
-    client = await retrieve_datas("client")
+    client = await get_all("client")
     if client:
         return client
     return "client doesn't exist"
@@ -33,7 +40,7 @@ async def get_clients():
     "/client/{id}", response_description="afficher un client", response_model=UserModel
 )
 async def get_client(id:str):
-    client = await retrieve_data("client",id)
+    client = await get_one("client",id)
     if client:
         return client
     return "client doesn't exist"
