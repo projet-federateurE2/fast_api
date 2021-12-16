@@ -2,12 +2,8 @@ from typing import List
 from fastapi import APIRouter
 from app.models.artisan import Artisan
 
-from app.database import (
-    retrieve_datas,
-    retrieve_data,
-    insert_data,
-    update_data,
-    remove_data
+from app.database.artisan import (
+    get_artisans_category
 )
 
 router_artisan = APIRouter()
@@ -16,7 +12,7 @@ router_artisan = APIRouter()
     "/artisans/{catArtisan}", response_description="Liste les catégories de travaux", response_model=List[Artisan]
 )
 async def get_artisans(catArtisan):
-    travaux = await retrieve_data("Artisan", "categorieArtisan", catArtisan)
-    if travaux:
-        return travaux
+    artisans = await get_artisans_category(catArtisan)
+    if artisans:
+        return artisans
     return "error"

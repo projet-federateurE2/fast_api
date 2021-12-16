@@ -42,7 +42,7 @@ async def update(collection:str, id: str, data_update: dict):
             return True
         return False
 
-async def remove(id: str):
+async def remove(collection:str, id: str):
     data_collection = database.get_collection(collection)
     data = await data_collection.find_one({"_id": id})
     if data:
