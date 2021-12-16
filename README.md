@@ -21,26 +21,45 @@ Dans ce projet notre équipe est en charge du développement de la partie Archit
 
 # Installation
 
-Clone the repository :
+Cloner le *repository* :
 ```bash
 git clone git@github.com:projet-federateurE2/fast_api.git
 cd fast_api
 ```
 
-## Running
+## Lancement dans Docker
 
-**Run container :**
+**Lancer le conteneur :**
 ```bash
 docker-compose up --build
 ```
 
-Browse [http://localhost:80](http://localhost:80).
-The API server is hot reloading !
+Se rendre sur [http://localhost:80](http://localhost:80).
 
-- [http://localhost/docs](http://localhost/docs) permet de tester l'API avec SwaggerUi
+## Lancement dans un environnement Python (venv)
+
+Création et installation d'un environnement virtuel avec :
+
+```bash
+python3 -m venv venv
+pip install -r requirements.venv.txt
+```
+
+Lancement :
+
+```bash
+source venv/bin/activate
+python3 run.py
+```
+
+Se rendre sur [http://localhost:8000](http://localhost:8000).
+
+## Interface API
+
+- [http://localhost/docs](http://localhost/docs) permet de tester l'API avec SwaggerUI
 - [http://localhost/redoc](http://localhost/redoc) permet de voir le format de données renvoyés sur chaque route
 - *les endpoints sont aussi accessibles directement via leur route (url définies dans le dossier routes)*
 
-# How to contribute ?
+# Comment contribuer ?
 
-See the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+Pour contribuer, voir le fichier [CONTRIBUTING.md](CONTRIBUTING.md).
