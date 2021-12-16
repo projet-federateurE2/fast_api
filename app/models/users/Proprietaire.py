@@ -11,9 +11,9 @@ class Logement(BaseModel):
     type : Literal["Maison", "Appaterment"]
     idProjet : List[str]
 
-class Proprietaire(UserModel):
+class proprietaire(UserModel):
     situation : Literal["Actif", "Retraité", "Sans emploi"]
-    revenue_fiscal: int
+    revenu_fiscal: int
     proprietes: List[Logement]
 
     class Config:
@@ -22,16 +22,16 @@ class Proprietaire(UserModel):
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "email": "client",
-                "role" : "propriétaires",
+                "email": "jean.dujardin@laposte.fr",
+                "role" : "Propriétaire",
                 "nom": "Dujardin",
                 "prenom": "jean",
                 "situation":"Actif",
                 "revenu_fiscal" : 21000,
-                "propriete": [{
+                "proprietes": [{
                     "adresse":"32 avenue des terrasses",
                     "surface" : 35,
-                    "type":"appartement",
+                    "type":"Appaterment",
                     "idProjet":[
                         "aaaaa"
                     ]
