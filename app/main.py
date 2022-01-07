@@ -4,7 +4,13 @@ from app.routes.route_artisan import router_artisan
 
 app = FastAPI()
 
-# app.include_router(router_proprietaire, tags=["test"], prefix="/test")
+# List all routes
+@app.get("/")
+def list_all_routes():
+    url_list = [{"path": route.path, "name": route.name}
+        for route in app.routes]
+    return url_list
+
 
 app.include_router(router_proprietaire, tags=["v1"], prefix="/v1")
 
