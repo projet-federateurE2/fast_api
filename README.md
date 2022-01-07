@@ -29,12 +29,17 @@ cd fast_api
 
 ## Lancement dans Docker
 
-**Lancer le conteneur :**
+Construire le conteneur (à exécuter la première fois) :
 ```bash
 docker-compose up --build
 ```
 
-Se rendre sur [http://localhost:80](http://localhost:80).
+**Lancement du conteneur avec :**
+```bash
+docker-compose up
+```
+
+Se rendre sur [http://localhost:8080](http://localhost:8080).
 
 ## Lancement dans un environnement Python (venv)
 
