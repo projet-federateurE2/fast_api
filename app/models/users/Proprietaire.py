@@ -8,7 +8,7 @@ from app.models.user import UserModel
 class Logement(BaseModel):
     adresse : str
     surface : int
-    type : Literal["Maison", "Appaterment"]
+    type : Literal["Maison", "Appartement"]
     idProjet : List[str]
 
 class proprietaire(UserModel):
@@ -25,13 +25,13 @@ class proprietaire(UserModel):
                 "email": "jean.dujardin@laposte.fr",
                 "role" : "Propriétaire",
                 "nom": "Dujardin",
-                "prenom": "jean",
+                "prenom": "Jean",
                 "situation":"Actif",
                 "revenu_fiscal" : 21000,
                 "proprietes": [{
                     "adresse":"32 avenue des terrasses",
                     "surface" : 35,
-                    "type":"Appaterment",
+                    "type":"Appartement",
                     "idProjet":[
                         "aaaaa"
                     ]
