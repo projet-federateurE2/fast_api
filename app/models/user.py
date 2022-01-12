@@ -1,10 +1,12 @@
 from datetime import datetime
 from typing import Dict, List, Literal, Optional
 from pydantic import BaseModel, Field
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId, _random_bytes
 from pydantic.networks import EmailStr
+from app.models.utils import PyObjectId
 
 class UserModel(BaseModel):
+    id : Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
     email : EmailStr
     role : Literal["Conseiller", "Propriétaire", "Admin"]
     nom : str = Field(max_length=25)
@@ -19,7 +21,7 @@ class UserModel(BaseModel):
                 "email": "jean.dujardin@laposte.fr",
                 "role": "Propriétaire",
                 "nom": "Dujardin",
-                "prenom": "jean"
+                "prenom": "Jean"
                 }
 
         }

@@ -21,28 +21,26 @@ from app.database.common_utils import (
 router_proprietaire = APIRouter()
 
 # Liste tout les proprietaires
-@router_proprietaire.get("/proprietaire",
-                         response_description="Liste tout les proprietaires",
-                         response_model=List[proprietaire])
+@router_proprietaire.get("/proprietaire", response_description="Liste tous les propriétaires", response_model=List[proprietaire])
 async def get_proprietaire():
     proprietaire = await get_all("proprietaire")
     if proprietaire:
         return proprietaire
-    return "proprietaire doesn't exist"
+    return "Il n'y a pas de propriétaire"
 
 # afficher un proprietaire identifié par son id
 @router_proprietaire.get("/proprietaire/{id}",
-                         response_description="afficher un proprietaire",
+                         response_description="Afficher un propriétaire",
                          response_model=proprietaire)
 async def get_proprietaire(id:str):
     proprietaire = await get_one("proprietaire",id)
     if proprietaire:
         return proprietaire
-    return "proprietaire doesn't exist"
+    return "Le propriétaire n'éxiste pas"
 
 # ajouter un nouveau proprietaire
 @router_proprietaire.post("/proprietaire",
-                          response_description="ajouter un nouveau proprietaire",
+                          response_description="Ajouter un nouveau propriétaire",
                           response_model=proprietaire)
 
 async def post_proprietaire(proprietaire_data : proprietaire = Body(...)):
