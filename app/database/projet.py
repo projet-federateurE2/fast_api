@@ -9,11 +9,11 @@ db = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URL)
 database = db.get_database(MONGO_DB)
 
 # Retrieve a data with a matching Field
-async def get_artisans_category(category:str):
+async def get_projet(id:str):
     try:
         list_data = []
-        data_collection = database.get_collection("Artisan")
-        async for data in data_collection.find({"categorie": category}):
+        data_collection = database.get_collection("Projets")
+        async for data in data_collection.find({"id": id}):
             list_data.append(data)
         return list_data
     except ValueError:
