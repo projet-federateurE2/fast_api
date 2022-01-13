@@ -21,8 +21,8 @@ from app.database.common_utils import (
 router_proprietaire = APIRouter()
 
 # Liste tout les proprietaires
-@router_proprietaire.get("/proprietaire", response_description="Liste tous les propriétaires", response_model=List[proprietaire])
-async def get_proprietaire():
+@router_proprietaire.get("/proprietaires", response_description="Liste tous les propriétaires", response_model=List[proprietaire])
+async def get_all_proprietaires():
     proprietaire = await get_all("proprietaire")
     if proprietaire:
         return proprietaire
@@ -32,7 +32,7 @@ async def get_proprietaire():
 @router_proprietaire.get("/proprietaire/{id}",
                          response_description="Afficher un propriétaire",
                          response_model=proprietaire)
-async def get_proprietaire(id:str):
+async def get_one_proprietaire(id:str):
     proprietaire = await get_one("proprietaire",id)
     if proprietaire:
         return proprietaire
