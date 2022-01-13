@@ -1,11 +1,9 @@
 import os
 import motor.motor_asyncio
-from bson.objectid import ObjectId
 
 MONGO_URL = os.environ.get("MONGODB_ADDON_URI")
-
-
 MONGO_DB = os.environ.get("MONGODB_ADDON_DB")
+
 db = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URL)
 database = db.get_database(MONGO_DB)
 

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.routes.route_proprietaire import router_proprietaire
 from app.routes.route_artisan import router_artisan
+from app.routes.route_projet import router_projet
 
 app = FastAPI()
 
@@ -15,3 +16,5 @@ def list_all_routes():
 app.include_router(router_proprietaire, tags=["v1"], prefix="/v1")
 
 app.include_router(router_artisan, tags=["v1"], prefix="/v1")
+
+app.include_router(router_projet, tags=["v1"], prefix="/v1")
