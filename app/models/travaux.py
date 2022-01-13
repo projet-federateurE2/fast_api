@@ -1,6 +1,8 @@
-from typing import List
-from pydantic import BaseModel
+from typing import List, Optional
+from pydantic import BaseModel, Field
 from typing_extensions import Literal
+from app.models.utils import PyObjectId
+
 
 class Tache(BaseModel):
     nom: str
@@ -21,6 +23,7 @@ class Travaux(BaseModel):
 
 # Nom de class Template_travaux à changer
 class Template_travaux(BaseModel):
+    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
     type: Literal["Isolation", "Chauffage", "Ventilation"]
     description: str
     pitch: str
