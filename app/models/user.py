@@ -1,45 +1,27 @@
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List, Literal, Optional
 from pydantic import BaseModel, Field
-from bson.objectid import ObjectId
-
-class Logement(BaseModel):
-    adresse : str
-    surface : int
-    type : str
-    idProjet : List[str]
+from bson.objectid import ObjectId, _random_bytes
+from pydantic.networks import EmailStr
+from app.models.utils import PyObjectId
 
 class UserModel(BaseModel):
-
-    email : str
-    password : str
-    role : str
+    id : Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    email : EmailStr
+    role : Literal["Conseiller", "Propriétaire", "Admin"]
     nom : str = Field(max_length=25)
     prenom : str = Field(max_length=15)
-    situation : str
-    revenu_fiscal : int
-    propriete : List[Logement]
-
+    
     class Config:
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "email": "client",
-                "password" : "kdsl",
-                "role" : "propriétaires",
+                "email": "jean.dujardin@laposte.fr",
+                "role": "Propriétaire",
                 "nom": "Dujardin",
-                "prenom": "jean",
-                "situation":"en activité",
-                "revenu_fiscal" : 454,
-                "propriete": [{
-                    "adresse":"32 avenue des terrasses",
-                    "surface" : 35,
-                    "type":"appartement",
-                    "idProjet":[
-                        "aaaaa"
-                    ]
-                }]
-            }
+                "prenom": "Jean"
+                }
+
         }
