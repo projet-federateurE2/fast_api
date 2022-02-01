@@ -1,3 +1,4 @@
+from http.client import HTTPException
 import os
 import motor.motor_asyncio
 
@@ -19,6 +20,7 @@ async def get_one(collection: str, id: str):
     data = await data_collection.find_one({"_id": id})
     if data:
         return data
+    return None
 
 async def insert(collection:str,add_data:dict):
     data_collection = database.get_collection(collection)
