@@ -26,7 +26,7 @@ async def get_all_proprietaires():
     proprietaire = await get_all("proprietaire")
     if proprietaire:
         return proprietaire
-    return "Il n'y a pas de propriétaire"
+    raise HTTPException(404, "Aucun propriétaire n'a été trouvé")
 
 # afficher un proprietaire identifié par son id
 @router_proprietaire.get("/proprietaire/{id}",
@@ -36,7 +36,7 @@ async def get_one_proprietaire(id:str):
     proprietaire = await get_one("proprietaire",id)
     if proprietaire:
         return proprietaire
-    return "Le propriétaire n'éxiste pas"
+    raise HTTPException(404, "Le propriétaire recherché n'existe pas")
 
 # ajouter un nouveau proprietaire
 @router_proprietaire.post("/proprietaire",
@@ -46,4 +46,6 @@ async def get_one_proprietaire(id:str):
 async def post_proprietaire(proprietaire_data : proprietaire = Body(...)):
     proprietaire = jsonable_encoder(proprietaire_data)
     new_proprietaire = await insert("proprietaire", proprietaire)
-    return new_proprietaire
+    if new_proprietaire:
+        return new_proprietaire
+    raise HTTPException(500, "Erreur technique lors de l'opération")
