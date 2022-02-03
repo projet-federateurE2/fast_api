@@ -30,7 +30,9 @@ async def get_projet(id:str):
 async def post_projet(projet_data : Projet = Body(...)):
     projet= jsonable_encoder(projet_data)
     new_projet= await insert("Projets", projet)
-    return new_projet
+    if new_projet:
+        return new_projet
+    raise HTTPException(500, "Erreur technique lors de l'opération")
 
 @router_projet.get("/projets/{id}",
     response_description= "Renvoie la liste des projets d'un propriétaire donné",
