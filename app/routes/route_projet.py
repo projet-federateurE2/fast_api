@@ -5,11 +5,21 @@ from app.models.projet import Projet
 
 from app.database.common_utils import (
     get_one,
-    insert
+    insert,
+    get_all
 )
 
 router_projet = APIRouter()
 
+@router_projet.get("/projet/template",
+    response_description= "Renvoie tout les projets",
+    response_model= List[Projet]
+)
+async def get_all_projet():
+    monProjet= await get_all("Projets")
+    if(monProjet):
+        return monProjet
+    raise HTTPException(404, "Projet inexistant")
 
 @router_projet.get("/projet/{id}",
     response_description= "Renvoie un projet par son id",
