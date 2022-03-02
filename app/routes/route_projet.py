@@ -11,57 +11,54 @@ from app.database.common_utils import (
 
 router_projet = APIRouter()
 
+
 @router_projet.get("/projet/template",
-    response_description= "Renvoie tout les projets",
-    response_model= List[Projet]
-)
+                   response_description="Renvoie tout les projets"
+                   )
 async def get_all_projet():
-    monProjet= await get_all("Projets")
-    if(monProjet):
+    monProjet = await get_all("Projets")
+    if (monProjet):
         return monProjet
     raise HTTPException(404, "Projet inexistant")
 
+
 @router_projet.get("/projet/{id}",
-    response_description= "Renvoie un projet par son id",
-    response_model= Projet
-)
-async def get_projet(id:str):
-    monProjet= await get_one("Projets", id)
-    if(monProjet):
+                   response_description="Renvoie un projet par son id"
+                   )
+async def get_projet(id: str):
+    monProjet = await get_one("Projets", id)
+    if (monProjet):
         return monProjet
     raise HTTPException(404, "Projet inexistant")
-   
+
 
 # Fonction permettant de post un projet
 @router_projet.post("/projet",
-    response_description= "ajouter un nouveau projet",
-    response_model= Projet)
-
-async def post_projet(projet_data : Projet = Body(...)):
-    projet= jsonable_encoder(projet_data)
-    new_projet= await insert("Projets", projet)
+                    response_description="ajouter un nouveau projet",
+                    response_model=Projet)
+async def post_projet(projet_data: Projet = Body(...)):
+    projet = jsonable_encoder(projet_data)
+    new_projet = await insert("Projets", projet)
     if new_projet:
         return new_projet
     raise HTTPException(500, "Erreur technique lors de l'opération")
 
+
 @router_projet.get("/projets/{id}",
-    response_description= "Renvoie la liste des projets d'un propriétaire donné",
-    response_model= List[Projet]
-)
-
-
-async def get_projets_proprietaire(id:str):
-    proprietaire = await get_one("proprietaire",id)
+                   response_description="Renvoie la liste des projets d'un propriétaire donné"
+                   )
+async def get_projets_proprietaire(id: str):
+    proprietaire = await get_one("proprietaire", id)
     if (proprietaire):
-        listProprietes= proprietaire["proprietes"]
+        listProprietes = proprietaire["proprietes"]
         if (not listProprietes): raise HTTPException(404, "Aucune propriétée trouvée pour cette personne")
         listProjets = []
         for propriete in listProprietes:
-            projets= propriete["idProjet"]
+            projets = propriete["idProjet"]
             listProjets.extend(projets)
 
         if (listProjets):
-            liste= []
+            liste = []
             for projet in listProjets:
                 projets = await get_one("Projets", projet)
                 print(projets)
