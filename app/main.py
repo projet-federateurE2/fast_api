@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+import jwt
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes.route_proprietaire import router_proprietaire
@@ -15,11 +16,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+header = Response.headers["otoroshi-claim"]
+
+
+def verify_jwt(header):
+    try:
+        jwt.decode(header, 'secret')
+    except:
+        return 'bad JWT'
+
+
 # List all routes
 @app.get("/")
 def list_all_routes():
     url_list = [{"path": route.path, "name": route.name}
-        for route in app.routes]
+                for route in app.routes]
     return url_list
 
 
