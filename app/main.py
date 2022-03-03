@@ -18,17 +18,19 @@ if(os.environ.get("ENV") != "dev"):
         try:
             oto = request.headers["otoroshi-claim"]
         except:
-            return JSONResponse(status_code=400, content={"erreur": "Pas de token Otoroshi"})
+            return JSONResponse(status_code=400, content={"erreur": "Pas de token Otoroshi", "info": "L'URL utilisée ne passe pas par le reverse-proxy"})
 
         try:
-            token = jwt.decode(oto, os.environ.get("JWT_SECRET"), audience="api-dev", algorithms = "HS256")
+            token = jwt.decode(oto, os.environ.get("JWT_SECRET"), audience = os.environ.get("JWT_AUDIENCE"), algorithms = "HS256")
             request.token = token
             response = await call_next(request)
             return response
-        except BaseException as e:
-            logging.error("os.environ" + os.environ.get("JWT_SECRET"))
-            logging.error(e)
+        except jwt.exceptions.InvalidTokenError as error:
+            logging.error(error)
             return JSONResponse(status_code=401, content={"erreur": "Mauvais token JWT", "token": oto })
+        except BaseException as error:
+            logging.error(error)
+            return JSONResponse(status_code=401, content={"erreur": "Erreur du token JWT", "info": error })
 
 
 # List all routes
