@@ -1,3 +1,4 @@
+import logging
 import os
 import jwt
 from fastapi import FastAPI, Request
@@ -31,7 +32,9 @@ async def add_process_time_header(request: Request, call_next):
         request.token = token
         response = await call_next(request)
         return response
-    except:
+    except BaseException as e:
+        logging.info("os.environ" + os.environ.get("JWT_SECRET"))
+        logging.error(e)
         return JSONResponse(status_code=401, content={"erreur": "Mauvais token JWT", "token": oto })
 
 
