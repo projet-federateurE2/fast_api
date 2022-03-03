@@ -6,3 +6,4 @@ motor
 pytest
 pymongo
 pylint
+pyjwt
