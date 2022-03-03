@@ -1,7 +1,8 @@
+import os
 import jwt
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-
 from app.routes.route_proprietaire import router_proprietaire
 from app.routes.route_artisan import router_artisan
 from app.routes.route_projet import router_projet
@@ -16,14 +17,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-header = Response.headers["otoroshi-claim"]
 
 
-def verify_jwt(header):
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
     try:
-        jwt.decode(header, 'secret')
+        oto = request.headers["otoroshi-claim"]
     except:
-        return 'bad JWT'
+        return JSONResponse(status_code=400, content={"erreur": "Pas de token Otoroshi"})
+
+    try:
+        token = jwt.decode(oto, os.environ.get("JWT_SECRET"), algorithms = "HS256")
+        request.token = token
+        response = await call_next(request)
+        return response
+    except:
+        return JSONResponse(status_code=401, content={"erreur": "Mauvais token JWT", "token": oto })
 
 
 # List all routes
