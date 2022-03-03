@@ -28,12 +28,12 @@ async def add_process_time_header(request: Request, call_next):
         return JSONResponse(status_code=400, content={"erreur": "Pas de token Otoroshi"})
 
     try:
-        token = jwt.decode(oto, os.environ.get("JWT_SECRET"), algorithms = "HS256")
+        token = jwt.decode(oto, os.environ.get("JWT_SECRET"), audience="api-dev", algorithms = "HS256")
         request.token = token
         response = await call_next(request)
         return response
     except BaseException as e:
-        logging.info("os.environ" + os.environ.get("JWT_SECRET"))
+        logging.error("os.environ" + os.environ.get("JWT_SECRET"))
         logging.error(e)
         return JSONResponse(status_code=401, content={"erreur": "Mauvais token JWT", "token": oto })
 
