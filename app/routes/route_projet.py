@@ -2,6 +2,7 @@ from typing import List
 from fastapi.encoders import jsonable_encoder
 from fastapi import APIRouter, Body, HTTPException
 from app.models.projet import Projet
+from fastapi.responses import JSONResponse
 
 from app.database.common_utils import (
     get_one,
@@ -18,7 +19,7 @@ router_projet = APIRouter()
 async def get_all_projet():
     monProjet = await get_all("Projets")
     if (monProjet):
-        return monProjet
+        return JSONResponse(monProjet, headers= {"Content-Type": "application/json; charset=utf-8"})
     raise HTTPException(404, "Projet inexistant")
 
 

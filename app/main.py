@@ -1,3 +1,4 @@
+from email import charset
 import logging
 import os
 import jwt
@@ -11,10 +12,18 @@ from app.routes.route_projet import router_projet
 
 app = FastAPI()
 
+charset = {"Content-Type": "application/json; charset=utf-8"}
+
+""" @app.middleware("http")
+async def add_charset(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["Content-Type"] = "application/json; charset=utf-8"
+    return response """
+
 
 if(os.environ.get("ENV") != "dev"):
     @app.middleware("http")
-    async def add_process_time_header(request: Request, call_next):
+    async def verify_JTW_token(request: Request, call_next):
         try:
             oto = request.headers["otoroshi-claim"]
         except:
@@ -30,7 +39,7 @@ if(os.environ.get("ENV") != "dev"):
             return JSONResponse(status_code=401, content={"erreur": "Mauvais token JWT", "token": oto })
         except BaseException as error:
             logging.error(error)
-            return JSONResponse(status_code=401, content={"erreur": "Erreur du token JWT", "info": error })
+            return JSONResponse(status_code=500, content={"erreur": "Erreur du token JWT", "info": error })
 
 
 # List all routes
@@ -38,15 +47,11 @@ if(os.environ.get("ENV") != "dev"):
 def list_all_routes():
     url_list = [{"path": route.path, "name": route.name}
                 for route in app.routes]
-    return url_list
-
+    return JSONResponse(url_list, headers= charset)
 
 app.include_router(router_proprietaire, tags=["v1"], prefix="/v1")
-
 app.include_router(router_artisan, tags=["v1"], prefix="/v1")
-
 app.include_router(router_projet, tags=["v1"], prefix="/v1")
-
 
 def auth_openapi():
     if app.openapi_schema:
@@ -64,7 +69,7 @@ def auth_openapi():
         }
     }
     openapi_schema["security"] = {
-        "basicauth": []
+        "basicAuth": []
     }
     app.openapi_schema = openapi_schema
     return app.openapi_schema
