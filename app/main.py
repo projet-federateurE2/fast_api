@@ -68,9 +68,9 @@ def auth_openapi():
             "scheme": "basic"
         }
     }
-    openapi_schema["security"] = {
+    openapi_schema["security"] = [{
         "basicAuth": []
-    }
+    }]
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
