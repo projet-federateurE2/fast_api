@@ -21,15 +21,17 @@ Dans ce projet notre équipe est en charge du développement de la partie Archit
 # Accès à l'API
 
 Les branches `main` et `develop` de ce repo sont automatiquement déployées dans le cloud. Liens d'accès :
-- [eq2-apiRenov_prod](https://app-ef3e460c-a183-4eb1-a1a6-ea2f0282e0cd.cleverapps.io/)
-- [eq2-apiRenov_dev](https://app-264b90dd-7d1e-417a-ab1c-733d0b96c1d0.cleverapps.io/)
+- [eq2-apiRenov_prod](https://equipe2.lp-cloud.tech/)
+- [eq2-apiRenov_dev](https://equipe2-api-dev.lp-cloud.tech/)
+
+**L'accès à l'API se fait par le biais d'une BasicAuth !**
 
 ## Interface API
 
 Les endpoints suivants fournissent une interface :
 
-- [/docs](https://app-ef3e460c-a183-4eb1-a1a6-ea2f0282e0cd.cleverapps.io/docs) permet de tester l'API avec SwaggerUI
-- [/redoc](https://app-ef3e460c-a183-4eb1-a1a6-ea2f0282e0cd.cleverapps.io/redoc) permet de voir le format de données renvoyés sur chaque route
+- [/docs](https://equipe2.lp-cloud.tech/docs) permet de tester l'API avec SwaggerUI
+- [/redoc](https://equipe2.lp-cloud.tech/redoc) permet de voir le format de données renvoyés sur chaque route
 
 # Installation
 
