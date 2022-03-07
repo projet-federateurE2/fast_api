@@ -4,21 +4,12 @@ import jwt
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.openapi.utils import get_openapi
-from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes.route_proprietaire import router_proprietaire
 from app.routes.route_artisan import router_artisan
 from app.routes.route_projet import router_projet
 
 app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*", "127.0.0.1", "http://localhost"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 charset = {"Content-Type": "application/json; charset=utf-8"}
 
