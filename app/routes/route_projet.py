@@ -7,7 +7,8 @@ from fastapi.responses import JSONResponse
 from app.database.common_utils import (
     get_one,
     insert,
-    get_all
+    get_all,
+    remove
 )
 
 router_projet = APIRouter()
@@ -70,3 +71,14 @@ async def get_projets_proprietaire(id: str):
 
         raise HTTPException(404, f"Le propriétaire {id} n'a pas de projets")
     raise HTTPException(status_code=404, detail="Aucun propriétaire trouvé")
+
+@router_projet.delete("/projet/template/delete/{id}",
+                      response_description="Supprimer un template de projet par son ID")
+async def delete_projet(id: str):
+    try:
+        projectRemove = await remove("Projets", id)
+        if projectRemove:
+            return projectRemove
+        raise HTTPException(404, "not found")
+    except BaseException:
+        return HTTPException(500, "Erreur technique")
