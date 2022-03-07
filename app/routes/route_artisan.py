@@ -9,32 +9,36 @@ from app.database import common_utils
 router_artisan = APIRouter()
 
 
-@router_artisan.get(
-    "/artisans/{catArtisan}", response_description="Liste les catégories de travaux", response_model=List[Artisan]
-)
+@router_artisan.get("/artisans/{catArtisan}",
+                    response_description="Liste les catégories de travaux",
+                    response_model=List[Artisan])
 async def get_artisans_category(catArtisan):
     try:
         artisans = await artisan.get_artisans_category(catArtisan)
         if artisans:
             return artisans
-        raise HTTPException(404, "La liste a renvoyée est vide, la catégorie n'a pas été trouvée")
+        raise HTTPException(
+            404, "La liste a renvoyée est vide, la catégorie n'a pas été trouvée")
     except ValueError:
         return "error"
 
 
-# Fonction permettant de post un artisan, à décommenter pour ajouter des jeux de test
-""" @router_artisan.post("/artisans", response_description="ajouter un nouvel artisan", response_model=Artisan)
-async def post_artisan(artisan_data : Artisan = Body(...)):
+# Ajouter un artisan
+@router_artisan.post("/artisans", response_description="Ajouter un nouvel artisan", response_model=Artisan)
+async def post_artisan(artisan_data: Artisan = Body(...)):
     artisan = jsonable_encoder(artisan_data)
     new_artisan = await common_utils.insert("Artisan", artisan)
-    return new_artisan """
+    if new_artisan:
+        return new_artisan
+    raise HTTPException(500, "Erreur technique lors de l'opération")
 
-# Fonction renvoyant tous les artisans, à décommenter si utilisée pour débuggage
-""" @router_artisan.get(
-    "/artisans", response_description="Liste des artisans", response_model=List[Artisan]
-)
+
+# Obtenir tous les artisans
+@router_artisan.get("/artisans",
+                    response_description="Liste les artisans",
+                    response_model=List[Artisan])
 async def get_artisans():
     artisans = await common_utils.get_all("Artisan")
     if artisans:
         return artisans
-    return "artisans doesn't exist" """
+    raise HTTPException(404, "Aucun artisan retourné")
