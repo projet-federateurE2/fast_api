@@ -39,7 +39,7 @@ async def update(collection: str, id: str, data_update: dict):
     data = await data_collection.find_one({"_id": id})
     if data:
         updated_data = await data_collection.update_one(
-            {"_id": id}, {"$set": data}
+            {"_id": id}, {"$set": data_update}
         )
         if updated_data:
             return True
