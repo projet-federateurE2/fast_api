@@ -1,6 +1,6 @@
 from typing import List
 
-from app.models.users.Proprietaire import proprietaire
+from app.models.users.Proprietaire import proprietaire, updateProprietaire
 from fastapi import APIRouter, Body, HTTPException
 from fastapi.encoders import jsonable_encoder
 
@@ -8,7 +8,8 @@ from app.database.common_utils import (
     get_one,
     insert,
     get_all,
-    remove
+    remove,
+    update
 )
 
 router_proprietaire = APIRouter()
@@ -45,6 +46,18 @@ async def get_one_proprietaire(id: str):
 async def post_proprietaire(proprietaire_data: proprietaire = Body(...)):
     proprietaire = jsonable_encoder(proprietaire_data)
     new_proprietaire = await insert("proprietaire", proprietaire)
+    if new_proprietaire:
+        return new_proprietaire
+    raise HTTPException(500, "Erreur technique lors de l'opération")
+
+
+# Modifier un proprietaire
+
+@router_proprietaire.patch("/proprietaire/update/{id}",
+                        response_description="Modifier les infos d'un propriétaire",)
+async def update_proprietaire(id:str, proprietaire_data_update: updateProprietaire = Body(...)):
+    proprietaire = jsonable_encoder(proprietaire_data_update)
+    new_proprietaire = await update("proprietaire", id, proprietaire)
     if new_proprietaire:
         return new_proprietaire
     raise HTTPException(500, "Erreur technique lors de l'opération")

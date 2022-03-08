@@ -25,3 +25,24 @@ class UserModel(BaseModel):
             }
 
         }
+
+class updateUserModel(BaseModel):
+    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    email: Optional[EmailStr]
+    role: Optional[Literal["Conseiller", "Propriétaire", "Admin"]]
+    nom: Optional[str] = Field(max_length=25)
+    prenom: Optional[str] = Field(max_length=15)
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        schema_extra = {
+            "example": {
+                "email": "jean.dujardin@laposte.fr",
+                "role": "Propriétaire",
+                "nom": "Dujardin",
+                "prenom": "Jean"
+            }
+
+        }
