@@ -54,10 +54,14 @@ async def post_proprietaire(proprietaire_data: proprietaire = Body(...)):
 # Modifier un proprietaire
 
 @router_proprietaire.patch("/proprietaire/update/{id}",
-                           response_description="Modifier les infos d'un propriétaire",)
+                           response_description="Modifier les infos et/ou les projets d'un propriétaire",
+                           response_model=proprietaire)
 async def update_proprietaire(id: str, proprietaire_data_update: updateProprietaire = Body(...)):
-    proprietaire = jsonable_encoder(proprietaire_data_update)
-    new_proprietaire = await update("proprietaire", id, proprietaire)
-    if new_proprietaire:
-        return new_proprietaire
+    proprietaire = {k: v for k, v in proprietaire_data_update.dict().items() if v is not None}
+    try:
+        new_proprietaire = await update("proprietaire", id, proprietaire)
+        if new_proprietaire:
+            return new_proprietaire
+    except ValueError:
+        raise HTTPException(404, "Le propriétaire à modifier est inexistant")
     raise HTTPException(500, "Erreur technique lors de l'opération")

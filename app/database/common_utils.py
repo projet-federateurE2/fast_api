@@ -37,13 +37,16 @@ async def update(collection: str, id: str, data_update: dict):
     if len(data_update) < 1:
         return False
     data = await data_collection.find_one({"_id": id})
+
     if data:
         updated_data = await data_collection.update_one(
             {"_id": id}, {"$set": data_update}
         )
-        if updated_data:
-            return True
+        if updated_data.modified_count == 1:
+            if (updated_obj := await data_collection.find_one({"_id": id})) is not None:
+                return updated_obj
         return False
+    raise ValueError
 
 
 async def remove(collection: str, id: str):
