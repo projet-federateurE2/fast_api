@@ -11,16 +11,6 @@ from app.routes.route_projet import router_projet
 
 app = FastAPI()
 
-charset = {"Content-Type": "application/json; charset=utf-8"}
-
-""" 
-@app.middleware("http")
-async def add_charset(request: Request, call_next):
-    response = await call_next(request)
-    response.headers["Content-Type"] = "application/json; charset=utf-8"
-    return response 
-"""
-
 
 if(os.environ.get("ENV") != "dev"):
     @app.middleware("http")
@@ -48,7 +38,7 @@ if(os.environ.get("ENV") != "dev"):
 def list_all_routes():
     url_list = [{"path": route.path, "name": route.name}
                 for route in app.routes]
-    return JSONResponse(url_list, headers= charset)
+    return url_list
 
 app.include_router(router_proprietaire, tags=["Proprietaire"], prefix="/v1")
 app.include_router(router_artisan, tags=["Artisan"], prefix="/v1")

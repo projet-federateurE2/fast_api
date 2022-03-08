@@ -1,7 +1,7 @@
 from .common_utils import database
 
 
-# Retrieve a data with a matching Field
+# Custom request: Retrieve a data with a matching Field
 async def get_artisans_category(category: str):
     try:
         list_data = []
